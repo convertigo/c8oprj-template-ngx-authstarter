@@ -34,3 +34,61 @@ tagName: ion-menu
       i18n: true
       itemtitle: 
       tagName: button
+↓Footer [ngx.components.UIDynamicElement-1772000300001]: 
+  beanData: '{"ionBean":"Footer"}'
+  comment: Footer
+  tagName: ion-footer
+  ↓ToolBar [ngx.components.UIDynamicElement-1772000300002]: 
+    beanData: '{"ionBean":"ToolBar"}'
+    comment: Tool Bar
+    tagName: ion-toolbar
+    ↓SignOutButton [ngx.components.UIDynamicElement-1772000300003]: 
+      beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+      comment: Sign Out Button
+      tagName: ion-button
+      ↓Event [ngx.components.UIControlEvent-1772000300004]: 
+        comment: Event
+        ↓OAuthSignOut [ngx.components.UIDynamicAction-1772000300901]: 
+          beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.SignOut"}'
+          comment: OAuth Sign Out
+        ↓SignOut [ngx.components.UIDynamicAction-1772000300005]: 
+          beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignOut"}'
+          comment: Sign Out
+        ↓ClearAuthUser [ngx.components.UIDynamicAction-1772000300006]: 
+          beanData: |
+            '{
+             "ionBean": "SetGlobalAction",
+             "Property": "plain:authUser",
+             "Value": "script:undefined"
+            }'
+          comment: Clear Auth User
+        ↓ClearAuthProvider [ngx.components.UIDynamicAction-1772000300007]: 
+          beanData: |
+            '{
+             "ionBean": "SetGlobalAction",
+             "Property": "plain:authProvider",
+             "Value": "script:undefined"
+            }'
+          comment: Clear Auth Provider
+        ↓ToastSuccess [ngx.components.UIDynamicAction-1772000300008]: 
+          beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_SignedOut'')"}'
+          comment: Toast Success
+        ↓GoToSignin [ngx.components.UIDynamicAction-1772000300009]: 
+          beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Signin"}'
+          comment: Go To Signin
+      ↓Icon [ngx.components.UIDynamicElement-1772000300010]: 
+        beanData: |
+          '{
+           "ionBean": "Icon",
+           "IconName": "plain:log-out-outline",
+           "IconSlot": "plain:start"
+          }'
+        comment: Icon
+        tagName: ion-icon
+      ↓Text [ngx.components.UIText-1772000300011]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_SignOut

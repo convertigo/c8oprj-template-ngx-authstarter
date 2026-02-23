@@ -1,0 +1,2364 @@
+↑isRoot: true
+comment: Starter authentication page
+icon: log-in
+preloadPriority: high
+scriptContent: 
+  - xmlizable: 
+    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+      →: |
+        '/*Begin_c8o_PageImport*/
+        /*End_c8o_PageImport*/
+        /*Begin_c8o_PageDeclaration*/
+        	/*End_c8o_PageDeclaration*/
+        /*Begin_c8o_PageConstructor*/
+        		/*End_c8o_PageConstructor*/
+        /*Begin_c8o_PageFunction*/
+        	public getSignInErrorMessage(loginOut) {
+        		var errorObj = loginOut != null && loginOut.error != null ? loginOut.error : null;
+        		if (errorObj == null) {
+        			return this.translate.instant(''Auth_Authentication_Failed'');
+        		}
+        		var code = errorObj.code != null ? ('''' + errorObj.code) : '''';
+        		if (code == ''2'') {
+        			return this.translate.instant(''Auth_Login_Error_Code_2'');
+        		}
+        		if (code == ''3'') {
+        			return this.translate.instant(''Auth_Login_Error_Code_3'');
+        		}
+        		if (code == ''4'') {
+        			return this.translate.instant(''Auth_Login_Error_Code_4'');
+        		}
+        		if (errorObj.message != null && errorObj.message != '''') {
+        			return errorObj.message;
+        		}
+        		if (code != '''') {
+        			return this.translate.instant(''Auth_Login_Error_Unknown'') + '' ('' + code + '')'';
+        		}
+        		return this.translate.instant(''Auth_Authentication_Failed'');
+        	}
+        	public getForgotPasswordErrorMessage(forgotOut) {
+        		var errorObj = forgotOut != null && forgotOut.error != null ? forgotOut.error : null;
+        		if (errorObj == null) {
+        			return this.translate.instant(''Auth_ForgotPassword_Failed'');
+        		}
+        		var code = errorObj.code != null ? ('''' + errorObj.code) : '''';
+        		if (code == ''2'') {
+        			return this.translate.instant(''Auth_ForgotPassword_Error_Code_2'');
+        		}
+        		if (errorObj.message != null && errorObj.message != '''') {
+        			return errorObj.message;
+        		}
+        		if (code != '''') {
+        			return this.translate.instant(''Auth_ForgotPassword_Error_Unknown'') + '' ('' + code + '')'';
+        		}
+        		return this.translate.instant(''Auth_ForgotPassword_Failed'');
+        	}
+        	public toggleShowPassword() {
+        		this.local = this.local || {};
+        		this.local.showPassword = !this.local.showPassword;
+        	}
+        	public toggleShowCreatePassword() {
+        		this.local = this.local || {};
+        		this.local.showCreatePassword = !this.local.showCreatePassword;
+        	}
+        	/*End_c8o_PageFunction*/
+        '
+segment: signin
+title: Signin
+↓PageEvent [ngx.components.UIPageEvent-1772000100902]: 
+  comment: Page Event
+  viewEvent: onWillEnter
+  ↓IfUserNotAuthenticated [ngx.components.UIDynamicIf-1772000100903]: 
+    beanData: '{"ionBean":"IfElseAction","condition":"script:this.global == null || this.global.authUser == null || this.global.authUser == ''''"}'
+    comment: If User Not Authenticated
+    ↓OAuthSignOut [ngx.components.UIDynamicAction-1772000100904]: 
+      beanData: |
+        '{
+         "ionBean": "CallSequenceAction",
+         "requestable": "plain:lib_OAuth.SignOut",
+         "noLoading": "plain:true"
+        }'
+      comment: OAuth Sign Out
+    ↓ClearAuthProvider [ngx.components.UIDynamicAction-1772000100905]: 
+      beanData: |
+        '{
+         "ionBean": "SetGlobalAction",
+         "Property": "plain:authProvider",
+         "Value": "script:undefined"
+        }'
+      comment: Clear Auth Provider
+↓Header [ngx.components.UIDynamicElement-1772000100001]: 
+  beanData: '{"ionBean":"Header"}'
+  comment: Header
+  tagName: ion-header
+  ↓ToolBar [ngx.components.UIDynamicElement-1772000100002]: 
+    beanData: '{"ionBean":"ToolBar"}'
+    comment: Tool Bar
+    tagName: ion-toolbar
+    ↓BarTitle [ngx.components.UIDynamicElement-1772000100003]: 
+      beanData: '{"ionBean":"BarTitle"}'
+      comment: Bar Title
+      tagName: ion-title
+      ↓Text [ngx.components.UIText-1772000100004]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_Starter_Title
+    ↓ButtonSet [ngx.components.UIDynamicElement-1772000100005]: 
+      beanData: '{"ionBean":"ButtonSet","SetPosition":"plain:end"}'
+      comment: Button Set
+      tagName: ion-buttons
+      ↓AuthModesButton [ngx.components.UIDynamicElement-1772000102608]: 
+        beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+        comment: Auth Modes Button
+        tagName: ion-button
+        ↓Event [ngx.components.UIControlEvent-1772000102705]: 
+          comment: Event
+          ↓ShowAuthModesModal [ngx.components.UIDynamicAction-1772000102706]: 
+            beanData: |
+              '{
+               "ionBean": "SetLocalAction",
+               "Property": "plain:showAuthModesDocs",
+               "Value": "script:true"
+              }'
+            comment: Show Auth Modes Modal
+        ↓Class [ngx.components.UIAttribute-1772000102692]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-header-button
+          comment: Class
+        ↓Id [ngx.components.UIAttribute-1772000102609]: 
+          attrName: id
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:open-auth-modes-docs
+          comment: Id
+        ↓Aria [ngx.components.UIAttribute-1772000102610]: 
+          attrName: aria-label
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:this.translate.instant('Auth_Modes_Docs_Button')
+          comment: Aria
+        ↓Title [ngx.components.UIAttribute-1772000102611]: 
+          attrName: title
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:this.translate.instant('Auth_Modes_Docs_Button')
+          comment: Title
+        ↓Icon [ngx.components.UIDynamicElement-1772000102612]: 
+          beanData: |
+            '{
+             "ionBean": "Icon",
+             "IconName": "plain:help-circle-outline",
+             "IconSlot": "plain:start"
+            }'
+          comment: Icon
+          tagName: ion-icon
+        ↓Text [ngx.components.UIText-1772000102691]: 
+          comment: Text
+          i18n: true
+          textValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:Auth_Modes_Docs_Button
+      ↓ThemeSwitchButton [ngx.components.UIDynamicElement-1772000100006]: 
+        beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+        comment: Theme Switch Button
+        tagName: ion-button
+        ↓Event [ngx.components.UIControlEvent-1772000100007]: 
+          comment: Event
+          ↓SetTheme [ngx.components.UIDynamicAction-1772000100008]: 
+            beanData: '{"ionBean":"SetThemeAction","dark":"script:!(this.global && this.global.themeDark)"}'
+            comment: Set Theme
+        ↓ThemeIcon [ngx.components.UIDynamicElement-1772000100009]: 
+          beanData: '{"ionBean":"Icon","IconName":"script:this?.global?.themeDark ? ''sunny-outline'' : ''moon-outline''"}'
+          comment: Theme Icon
+          tagName: ion-icon
+          ↓IconName [ngx.components.UIAttribute-1772000100010]: 
+            attrName: '[name]'
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: 'script:(this.global && this.global.themeDark) ? ''sunny-outline'' : ''moon-outline'''
+            comment: Icon Name
+      ↓LanguageSelector [ngx.components.UIDynamicElement-1771519405398]: 
+        beanData: |
+          '{
+           "ionBean": "Select",
+           "ControlName": "plain:name1770915137820",
+           "Justify": "plain:start"
+          }'
+        comment: Language Selector
+        tagName: ion-select
+        ↓Class [ngx.components.UIAttribute-1771519405399]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:toolbar-lang-select
+          comment: Class
+        ↓Aria [ngx.components.UIAttribute-1771519405400]: 
+          attrName: aria-label
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:'Language' | translate
+          comment: Aria
+        ↓Interface [ngx.components.UIAttribute-1771519405401]: 
+          attrName: '[interface]'
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:'popover'
+          comment: Interface
+        ↓Value [ngx.components.UIAttribute-1771519405402]: 
+          attrName: '[value]'
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:this.global.currentLanguage() ?? 'en'
+          comment: Value
+        ↓SelectedText [ngx.components.UIAttribute-1771519405403]: 
+          attrName: '[selectedText]'
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: script:(this.global?.getLanguageLabelKey() ??  'Lang_English') | translate
+          comment: Selected Text
+        ↓ChangeEvent [ngx.components.UIControlEvent-1771519405404]: 
+          attrName: (ionChange)
+          comment: Change Event
+          eventName: ionChange
+          ↓SetLanguage [ngx.components.UIDynamicAction-1771519405405]: 
+            beanData: |
+              '{
+               "ionBean": "SetLanguageAction",
+               "language": "script:event.detail.value",
+               "storageKey": "plain:c8o-lang",
+               "globalProperty": "plain:currentLanguage"
+              }'
+            comment: Set Language
+        ↓LangEN [ngx.components.UIDynamicElement-1771519405406]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:en"}'
+          comment: Lang EN
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1771519405407]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_English
+        ↓LangFR [ngx.components.UIDynamicElement-1771519405408]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:fr"}'
+          comment: Lang FR
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1771519405409]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_French
+        ↓LangIT [ngx.components.UIDynamicElement-1771519405410]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:it"}'
+          comment: Lang IT
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1771519405411]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_Italian
+        ↓LangES [ngx.components.UIDynamicElement-1771519405412]: 
+          beanData: '{"ionBean":"SelectOption","Value":"plain:es"}'
+          comment: Lang ES
+          tagName: ion-select-option
+          ↓Text [ngx.components.UIText-1771519405413]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Lang_Spanish
+↓AuthModesModal [ngx.components.UIDynamicElement-1772000102613]: 
+  beanData: '{"ionBean":"InlineModal"}'
+  comment: Auth Modes Modal
+  tagName: ion-modal
+  ↓IsOpen [ngx.components.UIAttribute-1772000102707]: 
+    attrName: '[isOpen]'
+    attrValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:this.local != null && this.local.showAuthModesDocs === true
+    comment: Is Open
+  ↓DidDismiss [ngx.components.UIControlEvent-1772000102708]: 
+    attrName: (didDismiss)
+    comment: Did Dismiss
+    eventName: didDismiss
+    ↓HideAuthModesModal [ngx.components.UIDynamicAction-1772000102709]: 
+      beanData: |
+        '{
+         "ionBean": "SetLocalAction",
+         "Property": "plain:showAuthModesDocs",
+         "Value": "script:false"
+        }'
+      comment: Hide Auth Modes Modal
+  ↓ToolBar [ngx.components.UIDynamicElement-1772000102615]: 
+    beanData: '{"ionBean":"ToolBar"}'
+    comment: Tool Bar
+    tagName: ion-toolbar
+    ↓BarTitle [ngx.components.UIDynamicElement-1772000102616]: 
+      beanData: '{"ionBean":"BarTitle"}'
+      comment: Bar Title
+      tagName: ion-title
+      ↓Text [ngx.components.UIText-1772000102617]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_Modes_Docs_Title
+    ↓ButtonSet [ngx.components.UIDynamicElement-1772000102618]: 
+      beanData: '{"ionBean":"ButtonSet"}'
+      comment: Button Set
+      tagName: ion-buttons
+      ↓Slot [ngx.components.UIAttribute-1772000102619]: 
+        attrName: slot
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:end
+        comment: Slot
+      ↓CloseButton [ngx.components.UIDynamicElement-1772000102620]: 
+        beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+        comment: Close Button
+        tagName: ion-button
+        ↓Icon [ngx.components.UIDynamicElement-1772000102621]: 
+          beanData: '{"ionBean":"Icon","IconName":"plain:close-outline"}'
+          comment: Icon
+          tagName: ion-icon
+        ↓Event [ngx.components.UIControlEvent-1772000102622]: 
+          comment: Event
+          ↓HideAuthModesModal [ngx.components.UIDynamicAction-1772000102710]: 
+            beanData: |
+              '{
+               "ionBean": "SetLocalAction",
+               "Property": "plain:showAuthModesDocs",
+               "Value": "script:false"
+              }'
+            comment: Hide Auth Modes Modal
+          ↓CloseModal [ngx.components.UIDynamicAction-1772000102623]: 
+            beanData: '{"ionBean":"CloseModalAction"}'
+            comment: Close Modal
+  ↓Content [ngx.components.UIDynamicElement-1772000102624]: 
+    beanData: '{"ionBean":"Content"}'
+    comment: Content
+    tagName: ion-content
+    ↓Class [ngx.components.UIAttribute-1772000102625]: 
+      attrName: class
+      attrValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:auth-modes-modal-content
+      comment: Class
+    ↓Intro [ngx.components.UIDynamicElement-1772000102626]: 
+      beanData: '{"ionBean":"Paragraph"}'
+      comment: Intro
+      tagName: p
+      ↓Class [ngx.components.UIAttribute-1772000102627]: 
+        attrName: class
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:auth-modes-intro
+        comment: Class
+      ↓Text [ngx.components.UIText-1772000102628]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_Modes_Docs_Subtitle
+    ↓SymbolExplanation [ngx.components.UIDynamicElement-1772000102693]: 
+      beanData: '{"ionBean":"Paragraph"}'
+      comment: Symbol Explanation
+      tagName: p
+      ↓Class [ngx.components.UIAttribute-1772000102694]: 
+        attrName: class
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:auth-modes-help
+        comment: Class
+      ↓Text [ngx.components.UIText-1772000102695]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_Modes_Docs_Symbol_Explanation
+    ↓AdminExplanation [ngx.components.UIDynamicElement-1772000102696]: 
+      beanData: '{"ionBean":"Paragraph"}'
+      comment: Admin Explanation
+      tagName: p
+      ↓Class [ngx.components.UIAttribute-1772000102697]: 
+        attrName: class
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:auth-modes-help
+        comment: Class
+      ↓Text [ngx.components.UIText-1772000102698]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_Modes_Docs_Admin_Explanation
+    ↓AdminDocLink [ngx.components.UIElement-1772000102699]: 
+      comment: Admin Doc Link
+      tagName: a
+      ↓Class [ngx.components.UIAttribute-1772000102700]: 
+        attrName: class
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:auth-modes-link auth-modes-admin-link
+        comment: Class
+      ↓Href [ngx.components.UIAttribute-1772000102701]: 
+        attrName: href
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:https://doc.convertigo.com/documentation/latest/operating-guide/using-convertigo-administration-console/#global-symbols
+        comment: Href
+      ↓Target [ngx.components.UIAttribute-1772000102702]: 
+        attrName: target
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:_blank
+        comment: Target
+      ↓Rel [ngx.components.UIAttribute-1772000102703]: 
+        attrName: rel
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:noopener noreferrer
+        comment: Rel
+      ↓Text [ngx.components.UIText-1772000102704]: 
+        comment: Text
+        i18n: true
+        textValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:Auth_Modes_Docs_Admin_Link
+    ↓List [ngx.components.UIElement-1772000102629]: 
+      comment: List
+      tagName: ul
+      ↓Class [ngx.components.UIAttribute-1772000102630]: 
+        attrName: class
+        attrValue: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+            - MobileSmartSourceType: plain:auth-modes-list
+        comment: Class
+      ↓InternalItem [ngx.components.UIElement-1772000102631]: 
+        comment: Internal Item
+        tagName: li
+        ↓Class [ngx.components.UIAttribute-1772000102632]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-item
+          comment: Class
+        ↓Label [ngx.components.UIElement-1772000102633]: 
+          comment: Label
+          tagName: span
+          ↓Text [ngx.components.UIText-1772000102634]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Internal
+        ↓DocLink [ngx.components.UIElement-1772000102635]: 
+          comment: Doc Link
+          tagName: a
+          ↓Class [ngx.components.UIAttribute-1772000102636]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:auth-modes-link
+            comment: Class
+          ↓Href [ngx.components.UIAttribute-1772000102637]: 
+            attrName: href
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:https://github.com/convertigo/c8oprj-lib-user-manager/blob/8.0.X/readme.md#auth-mode-internal
+            comment: Href
+          ↓Target [ngx.components.UIAttribute-1772000102638]: 
+            attrName: target
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:_blank
+            comment: Target
+          ↓Rel [ngx.components.UIAttribute-1772000102639]: 
+            attrName: rel
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:noopener noreferrer
+            comment: Rel
+          ↓Text [ngx.components.UIText-1772000102640]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Doc_Link
+      ↓LdapItem [ngx.components.UIElement-1772000102641]: 
+        comment: Ldap Item
+        tagName: li
+        ↓Class [ngx.components.UIAttribute-1772000102642]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-item
+          comment: Class
+        ↓Label [ngx.components.UIElement-1772000102643]: 
+          comment: Label
+          tagName: span
+          ↓Text [ngx.components.UIText-1772000102644]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_LDAP
+        ↓DocLink [ngx.components.UIElement-1772000102645]: 
+          comment: Doc Link
+          tagName: a
+          ↓Class [ngx.components.UIAttribute-1772000102646]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:auth-modes-link
+            comment: Class
+          ↓Href [ngx.components.UIAttribute-1772000102647]: 
+            attrName: href
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:https://github.com/convertigo/c8oprj-lib-user-manager/blob/8.0.X/readme.md#auth-mode-ldap
+            comment: Href
+          ↓Target [ngx.components.UIAttribute-1772000102648]: 
+            attrName: target
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:_blank
+            comment: Target
+          ↓Rel [ngx.components.UIAttribute-1772000102649]: 
+            attrName: rel
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:noopener noreferrer
+            comment: Rel
+          ↓Text [ngx.components.UIText-1772000102650]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Doc_Link
+      ↓GoogleItem [ngx.components.UIElement-1772000102651]: 
+        comment: Google Item
+        tagName: li
+        ↓Class [ngx.components.UIAttribute-1772000102652]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-item
+          comment: Class
+        ↓Label [ngx.components.UIElement-1772000102653]: 
+          comment: Label
+          tagName: span
+          ↓Text [ngx.components.UIText-1772000102654]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Google
+        ↓DocLink [ngx.components.UIElement-1772000102655]: 
+          comment: Doc Link
+          tagName: a
+          ↓Class [ngx.components.UIAttribute-1772000102656]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:auth-modes-link
+            comment: Class
+          ↓Href [ngx.components.UIAttribute-1772000102657]: 
+            attrName: href
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:https://github.com/convertigo/c8oprj-lib-oauth/blob/8.0.0/readme.md#auth-mode-google
+            comment: Href
+          ↓Target [ngx.components.UIAttribute-1772000102658]: 
+            attrName: target
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:_blank
+            comment: Target
+          ↓Rel [ngx.components.UIAttribute-1772000102659]: 
+            attrName: rel
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:noopener noreferrer
+            comment: Rel
+          ↓Text [ngx.components.UIText-1772000102660]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Doc_Link
+      ↓MicrosoftItem [ngx.components.UIElement-1772000102661]: 
+        comment: Microsoft Item
+        tagName: li
+        ↓Class [ngx.components.UIAttribute-1772000102662]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-item
+          comment: Class
+        ↓Label [ngx.components.UIElement-1772000102663]: 
+          comment: Label
+          tagName: span
+          ↓Text [ngx.components.UIText-1772000102664]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Microsoft
+        ↓DocLink [ngx.components.UIElement-1772000102665]: 
+          comment: Doc Link
+          tagName: a
+          ↓Class [ngx.components.UIAttribute-1772000102666]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:auth-modes-link
+            comment: Class
+          ↓Href [ngx.components.UIAttribute-1772000102667]: 
+            attrName: href
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:https://github.com/convertigo/c8oprj-lib-oauth/blob/8.0.0/readme.md#auth-mode-microsoft
+            comment: Href
+          ↓Target [ngx.components.UIAttribute-1772000102668]: 
+            attrName: target
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:_blank
+            comment: Target
+          ↓Rel [ngx.components.UIAttribute-1772000102669]: 
+            attrName: rel
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:noopener noreferrer
+            comment: Rel
+          ↓Text [ngx.components.UIText-1772000102670]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Doc_Link
+      ↓LinkedInItem [ngx.components.UIElement-1772000102671]: 
+        comment: Linked In Item
+        tagName: li
+        ↓Class [ngx.components.UIAttribute-1772000102672]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-item
+          comment: Class
+        ↓Label [ngx.components.UIElement-1772000102673]: 
+          comment: Label
+          tagName: span
+          ↓Text [ngx.components.UIText-1772000102674]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_LinkedIn
+        ↓DocLink [ngx.components.UIElement-1772000102675]: 
+          comment: Doc Link
+          tagName: a
+          ↓Class [ngx.components.UIAttribute-1772000102676]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:auth-modes-link
+            comment: Class
+          ↓Href [ngx.components.UIAttribute-1772000102677]: 
+            attrName: href
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:https://github.com/convertigo/c8oprj-lib-oauth/blob/8.0.0/readme.md#auth-mode-linkedin
+            comment: Href
+          ↓Target [ngx.components.UIAttribute-1772000102678]: 
+            attrName: target
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:_blank
+            comment: Target
+          ↓Rel [ngx.components.UIAttribute-1772000102679]: 
+            attrName: rel
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:noopener noreferrer
+            comment: Rel
+          ↓Text [ngx.components.UIText-1772000102680]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Doc_Link
+      ↓OpenIDItem [ngx.components.UIElement-1772000102681]: 
+        comment: Open IDItem
+        tagName: li
+        ↓Class [ngx.components.UIAttribute-1772000102682]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:auth-modes-item
+          comment: Class
+        ↓Label [ngx.components.UIElement-1772000102683]: 
+          comment: Label
+          tagName: span
+          ↓Text [ngx.components.UIText-1772000102684]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_OpenID
+        ↓DocLink [ngx.components.UIElement-1772000102685]: 
+          comment: Doc Link
+          tagName: a
+          ↓Class [ngx.components.UIAttribute-1772000102686]: 
+            attrName: class
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:auth-modes-link
+            comment: Class
+          ↓Href [ngx.components.UIAttribute-1772000102687]: 
+            attrName: href
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:https://github.com/convertigo/c8oprj-lib-oauth/blob/8.0.0/readme.md#auth-mode-openid
+            comment: Href
+          ↓Target [ngx.components.UIAttribute-1772000102688]: 
+            attrName: target
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:_blank
+            comment: Target
+          ↓Rel [ngx.components.UIAttribute-1772000102689]: 
+            attrName: rel
+            attrValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:noopener noreferrer
+            comment: Rel
+          ↓Text [ngx.components.UIText-1772000102690]: 
+            comment: Text
+            i18n: true
+            textValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: plain:Auth_Mode_Doc_Link
+↓Content [ngx.components.UIDynamicElement-1772000100011]: 
+  beanData: '{"ionBean":"Content"}'
+  comment: Content
+  tagName: ion-content
+  ↓Class [ngx.components.UIAttribute-1772000100012]: 
+    attrName: class
+    attrValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: plain:login-page-content
+    comment: Class
+  ↓Shell [ngx.components.UIDynamicElement-1772000100013]: 
+    beanData: '{"ionBean":"DivTag"}'
+    comment: Shell
+    tagName: div
+    ↓Class [ngx.components.UIAttribute-1772000100014]: 
+      attrName: class
+      attrValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: plain:login-shell
+      comment: Class
+    ↓ShowLoginCardDirective [ngx.components.UIControlDirective-1771523181670]: 
+      comment: Show Login Card Directive
+      directiveName: If
+      directiveSource: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:!this.local.showCreateAccount && !this.local.showForgotPassword
+      ↓LoginCard [ngx.components.UIDynamicElement-1772000100023]: 
+        beanData: '{"ionBean":"Card"}'
+        comment: Login Card
+        tagName: ion-card
+        ↓Class [ngx.components.UIAttribute-1772000100024]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:login-container
+          comment: Class
+        ↓CardHeader [ngx.components.UIDynamicElement-1772000100101]: 
+          beanData: '{"ionBean":"CardHeader"}'
+          comment: Card Header
+          tagName: ion-card-header
+          ↓CardTitle [ngx.components.UIDynamicElement-1772000100102]: 
+            beanData: '{"ionBean":"CardTitle"}'
+            comment: Card Title
+            tagName: ion-card-title
+            ↓Text [ngx.components.UIText-1772000100104]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_Card_Title
+          ↓CardSubTitle [ngx.components.UIDynamicElement-1772000100105]: 
+            beanData: '{"ionBean":"CardSubTitle"}'
+            comment: Card Sub Title
+            tagName: ion-card-subtitle
+            ↓Text [ngx.components.UIText-1772000100107]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_Card_Subtitle
+        ↓CardContent [ngx.components.UIDynamicElement-1772000100108]: 
+          beanData: '{"ionBean":"CardContent"}'
+          comment: Card Content
+          tagName: ion-card-content
+          ↓EmailItem [ngx.components.UIDynamicElement-1772000100025]: 
+            beanData: '{"ionBean":"GenericItem","Lines":"plain:none"}'
+            comment: Email Item
+            tagName: ion-item
+            ↓Icon [ngx.components.UIDynamicElement-1772000100026]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "plain:mail-outline",
+                 "IconSlot": "plain:start"
+                }'
+              comment: Icon
+              tagName: ion-icon
+            ↓EmailInput [ngx.components.UIDynamicElement-1772000100027]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:email",
+                 "Placeholder": "script:this.translate.instant(''Auth_Email'')",
+                 "Type": "plain:email"
+                }'
+              comment: Email Input
+              identifier: email
+              tagName: ion-input
+              ↓Event [ngx.components.UIControlEvent-1772000100028]: 
+                attrName: (ionInput)
+                comment: Event
+                eventName: ionInput
+                ↓SetEmail [ngx.components.UIDynamicAction-1772000100029]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:email",
+                     "Value": "script:event.detail.value"
+                    }'
+                  comment: Set Email
+          ↓PasswordItem [ngx.components.UIDynamicElement-1772000100030]: 
+            beanData: '{"ionBean":"GenericItem","Lines":"plain:none"}'
+            comment: Password Item
+            tagName: ion-item
+            ↓Icon [ngx.components.UIDynamicElement-1772000100031]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "plain:lock-closed-outline",
+                 "IconSlot": "plain:start"
+                }'
+              comment: Icon
+              tagName: ion-icon
+            ↓PasswordInput [ngx.components.UIDynamicElement-1772000100032]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:password",
+                 "Placeholder": "script:this.translate.instant(''Auth_Password'')",
+                 "Type": "script:(this.local != null && this.local.showPassword) ? ''text'' : ''password''"
+                }'
+              comment: Password Input
+              identifier: password
+              tagName: ion-input
+              ↓Event [ngx.components.UIControlEvent-1772000100033]: 
+                attrName: (ionInput)
+                comment: Event
+                eventName: ionInput
+                ↓SetPassword [ngx.components.UIDynamicAction-1772000100034]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:password",
+                     "Value": "script:event.detail.value"
+                    }'
+                  comment: Set Password
+            ↓TogglePasswordVisibility [ngx.components.UIDynamicElement-1772000100310]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "script:(this.local != null && this.local.showPassword) ? ''eye-off-outline'' : ''eye-outline''",
+                 "IconSlot": "plain:end"
+                }'
+              comment: Toggle Password Visibility
+              tagName: ion-icon
+              ↓Click [ngx.components.UIAttribute-1772000100311]: 
+                attrName: (click)
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:toggleShowPassword()
+                comment: Click
+              ↓Style [ngx.components.UIAttribute-1772000100312]: 
+                attrName: style
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:cursor:pointer
+                comment: Style
+          ↓ActionRow [ngx.components.UIDynamicElement-1772000100035]: 
+            beanData: '{"ionBean":"DivTag"}'
+            comment: Action Row
+            tagName: div
+            ↓Class [ngx.components.UIAttribute-1772000100036]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:login-actions
+              comment: Class
+            ↓LoginButton [ngx.components.UIDynamicElement-1772000100037]: 
+              beanData: '{"ionBean":"Button"}'
+              comment: Login Button
+              tagName: ion-button
+              ↓Class [ngx.components.UIAttribute-1772000100038]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:login-button
+                comment: Class
+              ↓Event [ngx.components.UIControlEvent-1772000100039]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100040]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100041]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100042]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                ↓Login [ngx.components.UIDynamicAction-1772000100043]: 
+                  beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignIn"}'
+                  comment: Login
+                  ↓IfLoginSuccess [ngx.components.UIDynamicIf-1772000100044]: 
+                    beanData: '{"ionBean":"IfElseAction","condition":"script:out.user != null && out.user != ''''"}'
+                    comment: If Login Success
+                    ↓SetAuthUser [ngx.components.UIDynamicAction-1772000100045]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetGlobalAction",
+                         "Property": "plain:authUser",
+                         "Value": "script:stack[''Login''] != null && stack[''Login''].out != null ? stack[''Login''].out.user : out.user"
+                        }'
+                      comment: Set Auth User
+                    ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100046]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetGlobalAction",
+                         "Property": "plain:authProvider",
+                         "Value": "script:''password''"
+                        }'
+                      comment: Set Auth Provider
+                    ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100047]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:sessionMessage",
+                         "Value": "script:this.translate.instant(''Auth_Connected'') + (stack[''Login''] != null && stack[''Login''].out != null ? stack[''Login''].out.user : out.user)"
+                        }'
+                      comment: Set Session Message
+                    ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100048]: 
+                      beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_Authentication_Successful'')"}'
+                      comment: Toast Success
+                    ↓GoToHome [ngx.components.UIDynamicAction-1772000100301]: 
+                      beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Home"}'
+                      comment: Go To Home
+                    ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100049]: 
+                      comment: Else Handler
+                      ↓ToastError [ngx.components.UIDynamicAction-1772000100050]: 
+                        beanData: '{"ionBean":"ToastAction","message":"script:this.getSignInErrorMessage(stack[''Login''] != null ? stack[''Login''].out : out)"}'
+                        comment: Toast Error
+                  ↓user [ngx.components.UIControlVariable-1772000100051]: 
+                    comment: user
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.local.email
+                  ↓password [ngx.components.UIControlVariable-1772000100052]: 
+                    comment: password
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.local.password
+                  ↓rememberMe [ngx.components.UIControlVariable-1772000100053]: 
+                    comment: remember Me
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:false
+              ↓Text [ngx.components.UIText-1772000100054]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_SignIn
+            ↓SignInLDAPButton [ngx.components.UIDynamicElement-1772000100470]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:outline"}'
+              comment: Sign In LDAPButton
+              tagName: ion-button
+              ↓Class [ngx.components.UIAttribute-1772000100471]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:login-button
+                comment: Class
+              ↓Event [ngx.components.UIControlEvent-1772000100472]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100473]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100474]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100475]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                  ↓LoginLDAP [ngx.components.UIDynamicAction-1772000100476]: 
+                    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignInLDAPBulk"}'
+                    comment: Login LDAP
+                    ↓IfLoginSuccess [ngx.components.UIDynamicIf-1772000100477]: 
+                      beanData: '{"ionBean":"IfElseAction","condition":"script:out.authenticatedUserID != null && out.authenticatedUserID != ''''"}'
+                      comment: If Login Success
+                      ↓SetAuthUser [ngx.components.UIDynamicAction-1772000100478]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetGlobalAction",
+                           "Property": "plain:authUser",
+                           "Value": "script:out.authenticatedUserID != null && out.authenticatedUserID != '''' ? out.authenticatedUserID : (out.user != null ? out.user : this.local.email)"
+                          }'
+                        comment: Set Auth User
+                      ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100479]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetGlobalAction",
+                           "Property": "plain:authProvider",
+                           "Value": "script:''ldap''"
+                          }'
+                        comment: Set Auth Provider
+                      ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100480]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetLocalAction",
+                           "Property": "plain:sessionMessage",
+                           "Value": "script:this.translate.instant(''Auth_Connected'') + (out.authenticatedUserID != null && out.authenticatedUserID != '''' ? out.authenticatedUserID : (out.user != null ? out.user : this.local.email))"
+                          }'
+                        comment: Set Session Message
+                      ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100481]: 
+                        beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_Authentication_Successful'')"}'
+                        comment: Toast Success
+                      ↓GoToHome [ngx.components.UIDynamicAction-1772000100482]: 
+                        beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Home"}'
+                        comment: Go To Home
+                      ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100483]: 
+                        comment: Else Handler
+                        ↓ToastError [ngx.components.UIDynamicAction-1772000100484]: 
+                          beanData: '{"ionBean":"ToastAction","message":"script:this.getSignInErrorMessage(out)"}'
+                          comment: Toast Error
+                    ↓user [ngx.components.UIControlVariable-1772000100485]: 
+                      comment: user
+                      varValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:this.local.email
+                    ↓password [ngx.components.UIControlVariable-1772000100486]: 
+                      comment: password
+                      varValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:this.local.password
+              ↓Text [ngx.components.UIText-1772000100487]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_SignIn_LDAP
+            ↓LoginButtonsSeparator [ngx.components.UIDynamicElement-1772000100490]: 
+              beanData: '{"ionBean":"DivTag"}'
+              comment: Login Buttons Separator
+              tagName: div
+              ↓Class [ngx.components.UIAttribute-1772000100491]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:login-separator
+                comment: Class
+              ↓SeparatorText [ngx.components.UIDynamicElement-1772000101490]: 
+                beanData: '{"ionBean":"DivTag"}'
+                comment: Separator Text
+                tagName: div
+                ↓Class [ngx.components.UIAttribute-1772000101491]: 
+                  attrName: class
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:login-separator-text
+                  comment: Class
+                ↓Text [ngx.components.UIText-1772000101492]: 
+                  comment: Text
+                  i18n: true
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:Auth_Separator_Or
+            ↓GoogleButton [ngx.components.UIDynamicElement-1772000100200]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:outline"}'
+              comment: Google Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100201]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100202]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100203]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100204]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                  ↓GetOAuthConfig [ngx.components.UIDynamicAction-1772000100205]: 
+                    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.GetOAuthCredentials"}'
+                    comment: Get OAuth Config
+                    ↓IfGoogleEnabled [ngx.components.UIDynamicIf-1772000100206]: 
+                      beanData: '{"ionBean":"IfElseAction","condition":"script:stack[''GetOAuthConfig''].out.GoogleClientID != null && stack[''GetOAuthConfig''].out.GoogleClientID != ''''"}'
+                      comment: If Google Enabled
+                      ↓OAuthLogin [ngx.components.UIDynamicAction-1772000100207]: 
+                        beanData: |
+                          '{
+                           "ionBean": "OAuthLoginAction",
+                           "provider": "plain:openid",
+                           "clientid": "script:stack[''GetOAuthConfig''].out.GoogleClientID",
+                           "scope": "plain:openid email profile",
+                           "response_type": "plain:code",
+                           "loginRequestable": "plain:lib_OAuth.loginGoogleWithCode",
+                           "checkAccessTokenRequestable": "plain:lib_OAuth.checkAccessTokenGoogle",
+                           "authorization_endpoint": "plain:https:\/\/accounts.google.com\/o\/oauth2\/v2\/auth",
+                           "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getTokenGoogle.html"
+                          }'
+                        comment: OAuth Login
+                        ↓IfLoginReturned [ngx.components.UIDynamicIf-1772000100208]: 
+                          beanData: '{"ionBean":"IfElseAction","condition":"script:out.login == ''ok''"}'
+                          comment: If Login Returned
+                          ↓SetAuthUser [ngx.components.UIDynamicAction-1772000100209]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authUser",
+                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.decodedToken != null && out.decodedToken != '''' ? out.decodedToken : (out.object != null && out.object.email != null ? out.object.email : ''''))"
+                              }'
+                            comment: Set Auth User
+                          ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100210]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authProvider",
+                               "Value": "script:''google''"
+                              }'
+                            comment: Set Auth Provider
+                          ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100211]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:sessionMessage",
+                               "Value": "script:this.translate.instant(''Auth_Connected'') + (out.authUser != null && out.authUser != '''' ? out.authUser : (out.decodedToken != null && out.decodedToken != '''' ? out.decodedToken : (out.object != null && out.object.email != null ? out.object.email : '''')))"
+                              }'
+                            comment: Set Session Message
+                          ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100212]: 
+                            beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_Authentication_Successful'')"}'
+                            comment: Toast Success
+                          ↓GoToHome [ngx.components.UIDynamicAction-1772000100302]: 
+                            beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Home"}'
+                            comment: Go To Home
+                          ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100213]: 
+                            comment: Else Handler
+                            ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100214]: 
+                              beanData: '{"ionBean":"ToastAction","message":"script:out.error != null && out.error.message != null && out.error.message != '''' ? out.error.message : (out.message != null && out.message != '''' ? out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
+                              comment: Toast OAuth Failure
+                      ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100215]: 
+                        comment: Else Handler
+                        ↓OpenAuthModesModal [ngx.components.UIDynamicAction-1772000102711]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:showAuthModesDocs",
+                             "Value": "script:true"
+                            }'
+                          comment: Open Auth Modes Modal
+                        ↓ToastMissingConfig [ngx.components.UIDynamicAction-1772000100216]: 
+                          beanData: '{"ionBean":"ToastAction","message":"plain:Google OAuth is not configured in lib_OAuth"}'
+                          comment: Toast Missing Config
+              ↓Text [ngx.components.UIText-1772000100217]: 
+                comment: Text
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Google
+            ↓MicrosoftButton [ngx.components.UIDynamicElement-1772000100218]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:outline"}'
+              comment: Microsoft Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100219]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100220]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100221]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100222]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                  ↓GetOAuthConfig [ngx.components.UIDynamicAction-1772000100223]: 
+                    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.GetOAuthCredentials"}'
+                    comment: Get OAuth Config
+                    ↓IfMicrosoftEnabled [ngx.components.UIDynamicIf-1772000100224]: 
+                      beanData: '{"ionBean":"IfElseAction","condition":"script:stack[''GetOAuthConfig''].out.AzureAdClientID != null && stack[''GetOAuthConfig''].out.AzureAdClientID != '''' && stack[''GetOAuthConfig''].out.AzureAdTenantID != null && stack[''GetOAuthConfig''].out.AzureAdTenantID != ''''"}'
+                      comment: If Microsoft Enabled
+                      ↓OAuthLogin [ngx.components.UIDynamicAction-1772000100225]: 
+                        beanData: |
+                          '{
+                           "ionBean": "OAuthLoginAction",
+                           "clientid": "script:stack[''GetOAuthConfig''].out.AzureAdClientID",
+                           "tenantid": "script:stack[''GetOAuthConfig''].out.AzureAdTenantID",
+                           "scope": "plain:openid%20https%3A%2F%2Fgraph.microsoft.com%2FUser.Read",
+                           "loginRequestable": "plain:lib_OAuth.loginAzureAdWithAccessToken",
+                           "checkAccessTokenRequestable": "plain:lib_OAuth.checkAccessToken",
+                           "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getToken.html"
+                          }'
+                        comment: OAuth Login
+                        ↓IfLoginReturned [ngx.components.UIDynamicIf-1772000100226]: 
+                          beanData: '{"ionBean":"IfElseAction","condition":"script:out.login == ''ok''"}'
+                          comment: If Login Returned
+                          ↓SetAuthUser [ngx.components.UIDynamicAction-1772000100227]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authUser",
+                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.userPrincipalName != null && out.object.userPrincipalName != '''' ? out.object.userPrincipalName : (out.object != null && out.object.mail != null ? out.object.mail : ''''))"
+                              }'
+                            comment: Set Auth User
+                          ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100228]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authProvider",
+                               "Value": "script:''microsoft''"
+                              }'
+                            comment: Set Auth Provider
+                          ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100229]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:sessionMessage",
+                               "Value": "script:this.translate.instant(''Auth_Connected'') + (out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.userPrincipalName != null && out.object.userPrincipalName != '''' ? out.object.userPrincipalName : (out.object != null && out.object.mail != null ? out.object.mail : '''')))"
+                              }'
+                            comment: Set Session Message
+                          ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100230]: 
+                            beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_Authentication_Successful'')"}'
+                            comment: Toast Success
+                          ↓GoToHome [ngx.components.UIDynamicAction-1772000100303]: 
+                            beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Home"}'
+                            comment: Go To Home
+                          ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100231]: 
+                            comment: Else Handler
+                            ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100232]: 
+                              beanData: '{"ionBean":"ToastAction","message":"script:out.error != null && out.error.message != null && out.error.message != '''' ? out.error.message : (out.message != null && out.message != '''' ? out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
+                              comment: Toast OAuth Failure
+                      ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100233]: 
+                        comment: Else Handler
+                        ↓OpenAuthModesModal [ngx.components.UIDynamicAction-1772000102712]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:showAuthModesDocs",
+                             "Value": "script:true"
+                            }'
+                          comment: Open Auth Modes Modal
+                        ↓ToastMissingConfig [ngx.components.UIDynamicAction-1772000100234]: 
+                          beanData: '{"ionBean":"ToastAction","message":"plain:Microsoft OAuth is not configured in lib_OAuth"}'
+                          comment: Toast Missing Config
+              ↓Text [ngx.components.UIText-1772000100235]: 
+                comment: Text
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Microsoft
+            ↓LinkedInButton [ngx.components.UIDynamicElement-1772000100236]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:outline"}'
+              comment: Linked In Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100237]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100238]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100239]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100240]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                  ↓GetOAuthConfig [ngx.components.UIDynamicAction-1772000100241]: 
+                    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.GetOAuthCredentials"}'
+                    comment: Get OAuth Config
+                    ↓IfLinkedInEnabled [ngx.components.UIDynamicIf-1772000100242]: 
+                      beanData: '{"ionBean":"IfElseAction","condition":"script:stack[''GetOAuthConfig''].out.LinkedInClientID != null && stack[''GetOAuthConfig''].out.LinkedInClientID != ''''"}'
+                      comment: If Linked In Enabled
+                      ↓OAuthLogin [ngx.components.UIDynamicAction-1772000100243]: 
+                        beanData: |
+                          '{
+                           "ionBean": "OAuthLoginAction",
+                           "provider": "plain:linkedin",
+                           "clientid": "script:stack[''GetOAuthConfig''].out.LinkedInClientID",
+                           "scope": "plain:r_liteprofile%20r_emailaddress",
+                           "loginRequestable": "plain:lib_OAuth.loginLinkedInWithCode",
+                           "checkAccessTokenRequestable": "plain:lib_OAuth.checkAccessTokenLinkedIn",
+                           "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getTokenLinkedIn.html"
+                          }'
+                        comment: OAuth Login
+                        ↓IfLoginReturned [ngx.components.UIDynamicIf-1772000100244]: 
+                          beanData: '{"ionBean":"IfElseAction","condition":"script:out.login == ''ok''"}'
+                          comment: If Login Returned
+                          ↓SetAuthUser [ngx.components.UIDynamicAction-1772000100245]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authUser",
+                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.emailAddress != null && out.emailAddress != '''' ? out.emailAddress : (out.object != null && out.object.id != null ? out.object.id : ''''))"
+                              }'
+                            comment: Set Auth User
+                          ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100246]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authProvider",
+                               "Value": "script:''linkedin''"
+                              }'
+                            comment: Set Auth Provider
+                          ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100247]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:sessionMessage",
+                               "Value": "script:this.translate.instant(''Auth_Connected'') + (out.emailAddress != null && out.emailAddress != '''' ? out.emailAddress : (out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.id != null ? out.object.id : '''')))"
+                              }'
+                            comment: Set Session Message
+                          ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100248]: 
+                            beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_Authentication_Successful'')"}'
+                            comment: Toast Success
+                          ↓GoToHome [ngx.components.UIDynamicAction-1772000100304]: 
+                            beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Home"}'
+                            comment: Go To Home
+                          ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100249]: 
+                            comment: Else Handler
+                            ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100250]: 
+                              beanData: '{"ionBean":"ToastAction","message":"script:out.error != null && out.error.message != null && out.error.message != '''' ? out.error.message : (out.message != null && out.message != '''' ? out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
+                              comment: Toast OAuth Failure
+                      ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100251]: 
+                        comment: Else Handler
+                        ↓OpenAuthModesModal [ngx.components.UIDynamicAction-1772000102713]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:showAuthModesDocs",
+                             "Value": "script:true"
+                            }'
+                          comment: Open Auth Modes Modal
+                        ↓ToastMissingConfig [ngx.components.UIDynamicAction-1772000100252]: 
+                          beanData: '{"ionBean":"ToastAction","message":"plain:LinkedIn OAuth is not configured in lib_OAuth"}'
+                          comment: Toast Missing Config
+              ↓Text [ngx.components.UIText-1772000100253]: 
+                comment: Text
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:LinkedIn
+            ↓OpenIDButton [ngx.components.UIDynamicElement-1772000100055]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:outline"}'
+              comment: Open IDButton
+              tagName: ion-button
+              ↓Class [ngx.components.UIAttribute-1772000100056]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:openid-button
+                comment: Class
+              ↓Event [ngx.components.UIControlEvent-1772000100057]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100058]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100059]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100060]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                  ↓GetOAuthConfig [ngx.components.UIDynamicAction-1772000100061]: 
+                    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.GetOAuthCredentials"}'
+                    comment: Get OAuth Config
+                    ↓IfOpenIdEnabled [ngx.components.UIDynamicIf-1772000100062]: 
+                      beanData: '{"ionBean":"IfElseAction","condition":"script:stack[''GetOAuthConfig''].out.OpenIDClientID != null && stack[''GetOAuthConfig''].out.OpenIDClientID != '''' && stack[''GetOAuthConfig''].out.OpenIDEndpoint != null && stack[''GetOAuthConfig''].out.OpenIDEndpoint != ''''"}'
+                      comment: If Open Id Enabled
+                      ↓OAuthLogin [ngx.components.UIDynamicAction-1772000100063]: 
+                        beanData: |
+                          '{
+                           "ionBean": "OAuthLoginAction",
+                           "provider": "plain:openid",
+                           "clientid": "script:stack[''GetOAuthConfig''].out.OpenIDClientID",
+                           "scope": "plain:openid profile email",
+                           "response_type": "plain:id_token+token",
+                           "loginRequestable": "plain:lib_OAuth.loginOpenIDWithAccessToken",
+                           "checkAccessTokenRequestable": "plain:lib_OAuth.checkAccessOpenID",
+                           "authorization_endpoint": "script:stack[''GetOAuthConfig''].out.OpenIDEndpoint",
+                           "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getToken.html"
+                          }'
+                        comment: OAuth Login
+                        ↓IfLoginReturned [ngx.components.UIDynamicIf-1772000100064]: 
+                          beanData: '{"ionBean":"IfElseAction","condition":"script:out.login == ''ok''"}'
+                          comment: If Login Returned
+                          ↓SetAuthUser [ngx.components.UIDynamicAction-1772000100067]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authUser",
+                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.email != null ? out.object.email : '''')"
+                              }'
+                            comment: Set Auth User
+                          ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100068]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetGlobalAction",
+                               "Property": "plain:authProvider",
+                               "Value": "script:''openid''"
+                              }'
+                            comment: Set Auth Provider
+                          ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100069]: 
+                            beanData: |
+                              '{
+                               "ionBean": "SetLocalAction",
+                               "Property": "plain:sessionMessage",
+                               "Value": "script:this.translate.instant(''Auth_Connected_OpenID'') + (out.object != null && out.object.email != null ? out.object.email : out.authUser)"
+                              }'
+                            comment: Set Session Message
+                          ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100070]: 
+                            beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_OpenID_Authentication_Successful'')"}'
+                            comment: Toast Success
+                          ↓GoToHome [ngx.components.UIDynamicAction-1772000100305]: 
+                            beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Home"}'
+                            comment: Go To Home
+                          ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100078]: 
+                            comment: Else Handler
+                            ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100079]: 
+                              beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_OpenID_Login_Cancelled_Or_Failed'')"}'
+                              comment: Toast OAuth Failure
+                      ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100080]: 
+                        comment: Else Handler
+                        ↓OpenAuthModesModal [ngx.components.UIDynamicAction-1772000102714]: 
+                          beanData: |
+                            '{
+                             "ionBean": "SetLocalAction",
+                             "Property": "plain:showAuthModesDocs",
+                             "Value": "script:true"
+                            }'
+                          comment: Open Auth Modes Modal
+                        ↓ToastMissingConfig [ngx.components.UIDynamicAction-1772000100081]: 
+                          beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_OpenID_Not_Configured'')"}'
+                          comment: Toast Missing Config
+              ↓Text [ngx.components.UIText-1772000100082]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_SignIn_OpenID
+            ↓SwitchToCreateButton [ngx.components.UIDynamicElement-1772000100166]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+              comment: Switch To Create Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100167]: 
+                comment: Event
+                ↓HideForgotPasswordCard [ngx.components.UIDynamicAction-1772000100406]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showForgotPassword",
+                     "Value": "script:false"
+                    }'
+                  comment: Hide Forgot Password Card
+                ↓ShowCreateAccountCard [ngx.components.UIDynamicAction-1772000100168]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showCreateAccount",
+                     "Value": "script:true"
+                    }'
+                  comment: Show Create Account Card
+              ↓Text [ngx.components.UIText-1772000100169]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_NoAccount_CreateOne
+            ↓SwitchToForgotPasswordButton [ngx.components.UIDynamicElement-1772000100400]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+              comment: Switch To Forgot Password Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100401]: 
+                comment: Event
+                ↓SetForgotEmail [ngx.components.UIDynamicAction-1772000100402]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:forgotEmail",
+                     "Value": "script:this.local != null && this.local.email != null ? this.local.email : ''''"
+                    }'
+                  comment: Set Forgot Email
+                ↓HideCreateAccountCard [ngx.components.UIDynamicAction-1772000100403]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showCreateAccount",
+                     "Value": "script:false"
+                    }'
+                  comment: Hide Create Account Card
+                ↓ShowForgotPasswordCard [ngx.components.UIDynamicAction-1772000100404]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showForgotPassword",
+                     "Value": "script:true"
+                    }'
+                  comment: Show Forgot Password Card
+              ↓Text [ngx.components.UIText-1772000100405]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_ForgotPassword_Button
+          ↓SessionState [ngx.components.UIDynamicElement-1772000100083]: 
+            beanData: '{"ionBean":"DivTag"}'
+            comment: Session State
+            tagName: div
+            ↓VisibleWhenSessionMessage [ngx.components.UIAttribute-1772000100316]: 
+              attrName: '*ngIf'
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:this.local.sessionMessage != null && this.local.sessionMessage != ''
+              comment: Visible When Session Message
+            ↓Class [ngx.components.UIAttribute-1772000100084]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:session-state
+              comment: Class
+            ↓Text [ngx.components.UIText-1772000100085]: 
+              comment: Text
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:this.local.sessionMessage
+          ↓LogoutButton [ngx.components.UIDynamicElement-1772000100086]: 
+            beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+            comment: Logout Button
+            tagName: ion-button
+            ↓Class [ngx.components.UIAttribute-1772000100087]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:logout-button
+              comment: Class
+            ↓VisibleWhenAuthenticated [ngx.components.UIAttribute-1772000100088]: 
+              attrName: '*ngIf'
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:this.global.authUser != null && this.global.authUser != ''
+              comment: Visible When Authenticated
+            ↓Event [ngx.components.UIControlEvent-1772000100089]: 
+              comment: Event
+              ↓OAuthSignOut [ngx.components.UIDynamicAction-1772000100901]: 
+                beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.SignOut"}'
+                comment: OAuth Sign Out
+              ↓SignOut [ngx.components.UIDynamicAction-1772000100090]: 
+                beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignOut"}'
+                comment: Sign Out
+              ↓ClearAuthUser [ngx.components.UIDynamicAction-1772000100091]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetGlobalAction",
+                   "Property": "plain:authUser",
+                   "Value": "script:undefined"
+                  }'
+                comment: Clear Auth User
+              ↓ClearAuthProvider [ngx.components.UIDynamicAction-1772000100092]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetGlobalAction",
+                   "Property": "plain:authProvider",
+                   "Value": "script:undefined"
+                  }'
+                comment: Clear Auth Provider
+              ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100093]: 
+                beanData: |
+                  '{
+                   "ionBean": "SetLocalAction",
+                   "Property": "plain:sessionMessage",
+                   "Value": "script:this.translate.instant(''Auth_SignedOut'')"
+                  }'
+                comment: Set Session Message
+              ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100094]: 
+                beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_SignedOut'')"}'
+                comment: Toast Success
+            ↓Text [ngx.components.UIText-1772000100095]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_SignOut
+    ↓ShowCreateAccountCardDirective [ngx.components.UIControlDirective-1771523195838]: 
+      comment: Show Create Account Card Directive
+      directiveName: If
+      directiveSource: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:this.local.showCreateAccount
+      ↓CreateAccountCard [ngx.components.UIDynamicElement-1772000100130]: 
+        beanData: '{"ionBean":"Card"}'
+        comment: Create Account Card
+        tagName: ion-card
+        ↓Class [ngx.components.UIAttribute-1772000100131]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:login-container
+          comment: Class
+        ↓CardHeader [ngx.components.UIDynamicElement-1772000100132]: 
+          beanData: '{"ionBean":"CardHeader"}'
+          comment: Card Header
+          tagName: ion-card-header
+          ↓CardTitle [ngx.components.UIDynamicElement-1772000100133]: 
+            beanData: '{"ionBean":"CardTitle"}'
+            comment: Card Title
+            tagName: ion-card-title
+            ↓Text [ngx.components.UIText-1772000100134]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_CreateAccount_Card_Title
+          ↓CardSubTitle [ngx.components.UIDynamicElement-1772000100135]: 
+            beanData: '{"ionBean":"CardSubTitle"}'
+            comment: Card Sub Title
+            tagName: ion-card-subtitle
+            ↓Text [ngx.components.UIText-1772000100136]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_CreateAccount_Card_Subtitle
+        ↓CardContent [ngx.components.UIDynamicElement-1772000100137]: 
+          beanData: '{"ionBean":"CardContent"}'
+          comment: Card Content
+          tagName: ion-card-content
+          ↓CreateEmailItem [ngx.components.UIDynamicElement-1772000100138]: 
+            beanData: '{"ionBean":"GenericItem","Lines":"plain:none"}'
+            comment: Create Email Item
+            tagName: ion-item
+            ↓Icon [ngx.components.UIDynamicElement-1772000100139]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "plain:mail-outline",
+                 "IconSlot": "plain:start"
+                }'
+              comment: Icon
+              tagName: ion-icon
+            ↓CreateEmailInput [ngx.components.UIDynamicElement-1772000100140]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:createEmail",
+                 "Placeholder": "script:this.translate.instant(''Auth_Email'')",
+                 "Type": "plain:email"
+                }'
+              comment: Create Email Input
+              identifier: createEmail
+              tagName: ion-input
+              ↓Event [ngx.components.UIControlEvent-1772000100141]: 
+                attrName: (ionInput)
+                comment: Event
+                eventName: ionInput
+                ↓SetCreateEmail [ngx.components.UIDynamicAction-1772000100142]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:createEmail",
+                     "Value": "script:event.detail.value"
+                    }'
+                  comment: Set Create Email
+          ↓CreatePasswordItem [ngx.components.UIDynamicElement-1772000100143]: 
+            beanData: '{"ionBean":"GenericItem","Lines":"plain:none"}'
+            comment: Create Password Item
+            tagName: ion-item
+            ↓Icon [ngx.components.UIDynamicElement-1772000100144]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "plain:lock-closed-outline",
+                 "IconSlot": "plain:start"
+                }'
+              comment: Icon
+              tagName: ion-icon
+            ↓CreatePasswordInput [ngx.components.UIDynamicElement-1772000100145]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:createPassword",
+                 "Placeholder": "script:this.translate.instant(''Auth_Password'')",
+                 "Type": "script:(this.local != null && this.local.showCreatePassword) ? ''text'' : ''password''"
+                }'
+              comment: Create Password Input
+              identifier: createPassword
+              tagName: ion-input
+              ↓Event [ngx.components.UIControlEvent-1772000100146]: 
+                attrName: (ionInput)
+                comment: Event
+                eventName: ionInput
+                ↓SetCreatePassword [ngx.components.UIDynamicAction-1772000100147]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:createPassword",
+                     "Value": "script:event.detail.value"
+                    }'
+                  comment: Set Create Password
+            ↓ToggleCreatePasswordVisibility [ngx.components.UIDynamicElement-1772000100313]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "script:(this.local != null && this.local.showCreatePassword) ? ''eye-off-outline'' : ''eye-outline''",
+                 "IconSlot": "plain:end"
+                }'
+              comment: Toggle Create Password Visibility
+              tagName: ion-icon
+              ↓Click [ngx.components.UIAttribute-1772000100314]: 
+                attrName: (click)
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: script:toggleShowCreatePassword()
+                comment: Click
+              ↓Style [ngx.components.UIAttribute-1772000100315]: 
+                attrName: style
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:cursor:pointer
+                comment: Style
+          ↓CreateActionRow [ngx.components.UIDynamicElement-1772000100148]: 
+            beanData: '{"ionBean":"DivTag"}'
+            comment: Create Action Row
+            tagName: div
+            ↓Class [ngx.components.UIAttribute-1772000100149]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:login-actions
+              comment: Class
+            ↓CreateAccountButton [ngx.components.UIDynamicElement-1772000100150]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+              comment: Create Account Button
+              tagName: ion-button
+              ↓Class [ngx.components.UIAttribute-1772000100151]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:login-button
+                comment: Class
+              ↓Event [ngx.components.UIControlEvent-1772000100152]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100153]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100154]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100155]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                ↓CreateAccount [ngx.components.UIDynamicAction-1772000100156]: 
+                  beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.CreateAccount"}'
+                  comment: Create Account
+                  ↓IfCreateAccountSuccess [ngx.components.UIDynamicIf-1772000100157]: 
+                    beanData: '{"ionBean":"IfElseAction","condition":"script:out.user != null && out.user != ''''"}'
+                    comment: If Create Account Success
+                    ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100158]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:sessionMessage",
+                         "Value": "script:this.translate.instant(''Auth_CreateAccount_Success'')"
+                        }'
+                      comment: Set Session Message
+                    ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100159]: 
+                      beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_CreateAccount_Success'')"}'
+                      comment: Toast Success
+                    ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100160]: 
+                      comment: Else Handler
+                      ↓ToastError [ngx.components.UIDynamicAction-1772000100161]: 
+                        beanData: '{"ionBean":"ToastAction","message":"script:stack[''CreateAccount''] != null && stack[''CreateAccount''].out != null && stack[''CreateAccount''].out.error != null && stack[''CreateAccount''].out.error.message != null && stack[''CreateAccount''].out.error.message != '''' ? stack[''CreateAccount''].out.error.message : this.translate.instant(''Auth_CreateAccount_Failed'')"}'
+                        comment: Toast Error
+                  ↓user [ngx.components.UIControlVariable-1772000100162]: 
+                    comment: user
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.local.createEmail
+                  ↓password [ngx.components.UIControlVariable-1772000100163]: 
+                    comment: password
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.local.createPassword
+                  ↓targetApplicationName [ngx.components.UIControlVariable-1772000100164]: 
+                    comment: target Application Name
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.translate.instant('Auth_Starter_Title')
+              ↓Text [ngx.components.UIText-1772000100165]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_CreateAccount
+            ↓SwitchToSignInButton [ngx.components.UIDynamicElement-1772000100170]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+              comment: Switch To Sign In Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100171]: 
+                comment: Event
+                ↓ShowLoginCard [ngx.components.UIDynamicAction-1772000100172]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showCreateAccount",
+                     "Value": "script:false"
+                    }'
+                  comment: Show Login Card
+                ↓HideForgotPasswordCard [ngx.components.UIDynamicAction-1772000100407]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showForgotPassword",
+                     "Value": "script:false"
+                    }'
+                  comment: Hide Forgot Password Card
+              ↓Text [ngx.components.UIText-1772000100173]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_HaveAccount_SignIn
+    ↓ShowForgotPasswordCardDirective [ngx.components.UIControlDirective-1772000100408]: 
+      comment: Show Forgot Password Card Directive
+      directiveName: If
+      directiveSource: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:this.local.showForgotPassword
+      ↓ForgotPasswordCard [ngx.components.UIDynamicElement-1772000100409]: 
+        beanData: '{"ionBean":"Card"}'
+        comment: Forgot Password Card
+        tagName: ion-card
+        ↓Class [ngx.components.UIAttribute-1772000100410]: 
+          attrName: class
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:login-container
+          comment: Class
+        ↓CardHeader [ngx.components.UIDynamicElement-1772000100411]: 
+          beanData: '{"ionBean":"CardHeader"}'
+          comment: Card Header
+          tagName: ion-card-header
+          ↓CardTitle [ngx.components.UIDynamicElement-1772000100412]: 
+            beanData: '{"ionBean":"CardTitle"}'
+            comment: Card Title
+            tagName: ion-card-title
+            ↓Text [ngx.components.UIText-1772000100413]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_ForgotPassword_Card_Title
+          ↓CardSubTitle [ngx.components.UIDynamicElement-1772000100414]: 
+            beanData: '{"ionBean":"CardSubTitle"}'
+            comment: Card Sub Title
+            tagName: ion-card-subtitle
+            ↓Text [ngx.components.UIText-1772000100415]: 
+              comment: Text
+              i18n: true
+              textValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:Auth_ForgotPassword_Card_Subtitle
+        ↓CardContent [ngx.components.UIDynamicElement-1772000100416]: 
+          beanData: '{"ionBean":"CardContent"}'
+          comment: Card Content
+          tagName: ion-card-content
+          ↓ForgotEmailItem [ngx.components.UIDynamicElement-1772000100417]: 
+            beanData: '{"ionBean":"GenericItem","Lines":"plain:none"}'
+            comment: Forgot Email Item
+            tagName: ion-item
+            ↓Icon [ngx.components.UIDynamicElement-1772000100418]: 
+              beanData: |
+                '{
+                 "ionBean": "Icon",
+                 "IconName": "plain:mail-outline",
+                 "IconSlot": "plain:start"
+                }'
+              comment: Icon
+              tagName: ion-icon
+            ↓ForgotEmailInput [ngx.components.UIDynamicElement-1772000100419]: 
+              beanData: |
+                '{
+                 "ionBean": "Input",
+                 "ControlName": "plain:forgotEmail",
+                 "Placeholder": "script:this.translate.instant(''Auth_Email'')",
+                 "Type": "plain:email"
+                }'
+              comment: Forgot Email Input
+              identifier: forgotEmail
+              tagName: ion-input
+              ↓Event [ngx.components.UIControlEvent-1772000100420]: 
+                attrName: (ionInput)
+                comment: Event
+                eventName: ionInput
+                ↓SetForgotEmail [ngx.components.UIDynamicAction-1772000100421]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:forgotEmail",
+                     "Value": "script:event.detail.value"
+                    }'
+                  comment: Set Forgot Email
+          ↓ForgotActionRow [ngx.components.UIDynamicElement-1772000100422]: 
+            beanData: '{"ionBean":"DivTag"}'
+            comment: Forgot Action Row
+            tagName: div
+            ↓Class [ngx.components.UIAttribute-1772000100423]: 
+              attrName: class
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:login-actions
+              comment: Class
+            ↓SendForgotPasswordButton [ngx.components.UIDynamicElement-1772000100424]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+              comment: Send Forgot Password Button
+              tagName: ion-button
+              ↓Class [ngx.components.UIAttribute-1772000100425]: 
+                attrName: class
+                attrValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:login-button
+                comment: Class
+              ↓Event [ngx.components.UIControlEvent-1772000100426]: 
+                comment: Event
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1772000100427]: 
+                  comment: Finally Handler
+                  ↓SetDoingLoginFalse [ngx.components.UIDynamicAction-1772000100428]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                    comment: Set Doing Login False
+                ↓SetDoingLoginTrue [ngx.components.UIDynamicAction-1772000100429]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetGlobalAction",
+                     "Property": "plain:doingLogin",
+                     "Value": "script:true"
+                    }'
+                  comment: Set Doing Login True
+                ↓ForgotPassword [ngx.components.UIDynamicAction-1772000100430]: 
+                  beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.ForgotPasswordWithBrand"}'
+                  comment: Forgot Password
+                  ↓IfSuccess [ngx.components.UIDynamicIf-1772000100431]: 
+                    beanData: '{"ionBean":"IfElseAction","condition":"script:out.error == null"}'
+                    comment: If Success
+                    ↓SetSessionMessage [ngx.components.UIDynamicAction-1772000100432]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:sessionMessage",
+                         "Value": "script:this.translate.instant(''Auth_ForgotPassword_Sent'')"
+                        }'
+                      comment: Set Session Message
+                    ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100433]: 
+                      beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_ForgotPassword_Sent'')"}'
+                      comment: Toast Success
+                    ↓ShowLoginCard [ngx.components.UIDynamicAction-1772000100434]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetLocalAction",
+                         "Property": "plain:showForgotPassword",
+                         "Value": "script:false"
+                        }'
+                      comment: Show Login Card
+                    ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100435]: 
+                      comment: Else Handler
+                      ↓ToastError [ngx.components.UIDynamicAction-1772000100436]: 
+                        beanData: '{"ionBean":"ToastAction","message":"script:this.getForgotPasswordErrorMessage(out)"}'
+                        comment: Toast Error
+                  ↓email [ngx.components.UIControlVariable-1772000100437]: 
+                    comment: email
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: 'script:this.local.forgotEmail != null && this.local.forgotEmail != '''' ? this.local.forgotEmail : this.local.email'
+                  ↓emailSubject [ngx.components.UIControlVariable-1772000100438]: 
+                    comment: email Subject
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.translate.instant('Auth_ForgotPassword_Email_Subject')
+                  ↓emailLogo [ngx.components.UIControlVariable-1772000100439]: 
+                    comment: email Logo
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:'https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png'
+                  ↓targetApplicationName [ngx.components.UIControlVariable-1772000100440]: 
+                    comment: target Application Name
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this.translate.instant('Auth_Starter_Title')
+                  ↓lang [ngx.components.UIControlVariable-1772000100441]: 
+                    comment: lang
+                    varValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: 'script:this.global != null && this.global.currentLanguage != null && this.global.currentLanguage() == ''fr'' ? ''fr'' : ''en'''
+              ↓Text [ngx.components.UIText-1772000100442]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_ForgotPassword_Send
+            ↓BackToSignInButton [ngx.components.UIDynamicElement-1772000100443]: 
+              beanData: '{"ionBean":"Button","IonFill":"plain:clear"}'
+              comment: Back To Sign In Button
+              tagName: ion-button
+              ↓Event [ngx.components.UIControlEvent-1772000100444]: 
+                comment: Event
+                ↓ShowLoginCard [ngx.components.UIDynamicAction-1772000100445]: 
+                  beanData: |
+                    '{
+                     "ionBean": "SetLocalAction",
+                     "Property": "plain:showForgotPassword",
+                     "Value": "script:false"
+                    }'
+                  comment: Show Login Card
+              ↓Text [ngx.components.UIText-1772000100446]: 
+                comment: Text
+                i18n: true
+                textValue: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                    - MobileSmartSourceType: plain:Auth_ForgotPassword_BackToSignIn
+↓login [ngx.components.UIStyle-1772000100096]: 
+  comment: login
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '.login-shell {
+           min-height: 100%;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           padding: 24px;
+           gap: 20px;
+          }
+          .login-container {
+           width: 100%;
+           max-width: 460px;
+           border-radius: 12px;
+           padding: 22px;
+           display: flex;
+           flex-direction: column;
+           gap: 14px;
+          }
+          .login-actions {
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+          }
+          
+          .login-separator {
+           width: 100%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           gap: 10px;
+           margin: 6px 0 4px 0;
+          }
+          .auth-modes-header-button {
+           white-space: nowrap;
+           --padding-start: 8px;
+           --padding-end: 8px;
+           font-size: 0.82rem;
+          }
+          .auth-modes-modal-content {
+           --padding-start: 18px;
+           --padding-end: 18px;
+           --padding-top: 14px;
+           --padding-bottom: 18px;
+          }
+          .auth-modes-intro {
+           margin: 0 0 12px 0;
+           font-size: 0.95rem;
+          }
+          .auth-modes-help {
+           margin: 0 0 8px 0;
+           font-size: 0.9rem;
+           line-height: 1.35;
+           color: var(--ion-color-medium, #5f6b7a);
+          }
+          .auth-modes-admin-link {
+           display: inline-flex;
+           margin: 0 0 12px 0;
+          }
+          .auth-modes-list {
+           list-style: none;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           flex-direction: column;
+           gap: 8px;
+          }
+          .auth-modes-item {
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           gap: 14px;
+           padding: 10px 0;
+           border-bottom: 1px solid var(--ion-color-step-150, #e2e8f0);
+          }
+          .auth-modes-item:last-child {
+           border-bottom: none;
+          }
+          .auth-modes-link {
+           color: var(--ion-color-primary);
+           font-weight: 600;
+           text-decoration: none;
+           white-space: nowrap;
+          }
+          .login-separator::before,
+          .login-separator::after {
+           content: "";
+           flex: 1 1 auto;
+           height: 1px;
+           background: var(--ion-color-step-250, #d7d8da);
+          }
+          .login-separator-text {
+           font-size: 0.82rem;
+           color: var(--ion-color-medium, #666);
+          }
+          .session-state {
+           margin-top: 6px;
+           font-size: 0.95rem;
+           text-align: center;
+          }
+          @media (max-width: 540px) {
+           .login-shell {
+            padding: 18px;
+           }
+           .login-container {
+            padding: 18px;
+           }
+          }
+          '

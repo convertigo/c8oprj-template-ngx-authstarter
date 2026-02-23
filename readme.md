@@ -1,9 +1,9 @@
 
 
 
-# template_ngxBuilderIonic
+# AuthStarter
 
-Convertigo NGX builder Project
+Convertigo Auth Starter Project
 
 
 For more technical informations : [documentation](./project.md)
@@ -11,7 +11,8 @@ For more technical informations : [documentation](./project.md)
 - [Installation](#installation)
 - [Mobile Application](#mobile-application)
     - [Pages](#pages)
-        - [Page](#page)
+        - [Home](#home)
+        - [Signin](#signin)
 
 
 ## Installation
@@ -27,17 +28,17 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     template_ngxBuilderIonic=git@github.com:convertigo/c8oprj-template-ngx-builder.git:branch=8.4.0
+     AuthStarter=/Users/charlesg/dev/convertigo/studios/Studio_8.4_stable/AuthStarter/.git:branch=master
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     template_ngxBuilderIonic=git@github.com:convertigo/c8oprj-template-ngx-builder/archive/8.4.0.zip
+     AuthStarter=/Users/charlesg/dev/convertigo/studios/Studio_8.4_stable/AuthStarter//archive/master.zip
      ```
      </td></tr>
     </table>
-3. Click the `Finish` button. This will automatically import the __template_ngxBuilderIonic__ project
+3. Click the `Finish` button. This will automatically import the __AuthStarter__ project
 
 
 ## Mobile Application
@@ -46,9 +47,13 @@ Describes the mobile application global properties
 
 ### Pages
 
-#### Page
+#### Home
 
-Default home page
+Authenticated landing page
+
+#### Signin
+
+Starter authentication page
 
 
 
