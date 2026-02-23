@@ -28,13 +28,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     AuthStarter=/Users/charlesg/dev/convertigo/studios/Studio_8.4_stable/AuthStarter/.git:branch=master
+     AuthStarter=https://github.com/convertigo/c8oprj-template-ngx-authstarter.git:branch=8.4.0.0
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     AuthStarter=/Users/charlesg/dev/convertigo/studios/Studio_8.4_stable/AuthStarter//archive/master.zip
+     AuthStarter=https://github.com/convertigo/c8oprj-template-ngx-authstarter/archive/8.4.0.0.zip
      ```
      </td></tr>
     </table>
@@ -54,6 +54,5 @@ Authenticated landing page
 #### Signin
 
 Starter authentication page
-
 
 

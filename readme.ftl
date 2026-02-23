@@ -127,12 +127,12 @@ ${title}${lineBreak}
      <tr><td>Usage</td><td>Click the copy button at the end of the line</td></tr>
      <tr><td>To contribute</td><td>${lineBreak}
      ```
-     ${project.contributeUrl}
+     ${project.contributeUrl?replace("=git@github.com:", "=https://github.com/")}
      ```
      </td></tr>
      <tr><td>To simply use</td><td>${lineBreak}
      ```
-     ${project.usageUrl}
+     ${project.usageUrl?replace("=git@github.com:", "=https://github.com/")}
      ```
      </td></tr>
     </table>
@@ -149,12 +149,12 @@ ${title}${lineBreak}
      <tr><td>Usage</td><td>Cliquez sur le bouton de copie en fin de ligne</td></tr>
      <tr><td>Pour contribuer</td><td>${lineBreak}
      ```
-     ${lineBreak}${project.contributeUrl}
+     ${lineBreak}${project.contributeUrl?replace("=git@github.com:", "=https://github.com/")}
      ```
      </td></tr>
      <tr><td>Pour simplement utiliser</td><td>${lineBreak}
      ```
-     ${lineBreak}${project.usageUrl}
+     ${lineBreak}${project.usageUrl?replace("=git@github.com:", "=https://github.com/")}
      ```
      </td></tr>
     </table>
@@ -294,4 +294,3 @@ ${help("more.info")} : [documentation](./project.md)
 
 <#-- output project content -->
 ${content}
-
