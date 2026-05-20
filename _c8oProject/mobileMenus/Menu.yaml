@@ -49,10 +49,20 @@ tagName: ion-menu
       ↓Event [ngx.components.UIControlEvent-1772000300004]: 
         comment: Event
         ↓OAuthSignOut [ngx.components.UIDynamicAction-1772000300901]: 
-          beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.SignOut"}'
+          beanData: |
+            '{
+             "ionBean": "CallSequenceAction",
+             "requestable": "plain:lib_OAuth.SignOut",
+             "noAutoLogin": "plain:true"
+            }'
           comment: OAuth Sign Out
         ↓SignOut [ngx.components.UIDynamicAction-1772000300005]: 
-          beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignOut"}'
+          beanData: |
+            '{
+             "ionBean": "CallSequenceAction",
+             "requestable": "plain:lib_UserManager.SignOut",
+             "noAutoLogin": "plain:true"
+            }'
           comment: Sign Out
         ↓ClearAuthUser [ngx.components.UIDynamicAction-1772000300006]: 
           beanData: |

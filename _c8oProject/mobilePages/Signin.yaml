@@ -77,7 +77,8 @@ title: Signin
         '{
          "ionBean": "CallSequenceAction",
          "requestable": "plain:lib_OAuth.SignOut",
-         "noLoading": "plain:true"
+         "noLoading": "plain:true",
+         "noAutoLogin": "plain:true"
         }'
       comment: OAuth Sign Out
     ↓ClearAuthProvider [ngx.components.UIDynamicAction-1772000100905]: 
@@ -1733,10 +1734,20 @@ title: Signin
             ↓Event [ngx.components.UIControlEvent-1772000100089]: 
               comment: Event
               ↓OAuthSignOut [ngx.components.UIDynamicAction-1772000100901]: 
-                beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.SignOut"}'
+                beanData: |
+                  '{
+                   "ionBean": "CallSequenceAction",
+                   "requestable": "plain:lib_OAuth.SignOut",
+                   "noAutoLogin": "plain:true"
+                  }'
                 comment: OAuth Sign Out
               ↓SignOut [ngx.components.UIDynamicAction-1772000100090]: 
-                beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignOut"}'
+                beanData: |
+                  '{
+                   "ionBean": "CallSequenceAction",
+                   "requestable": "plain:lib_UserManager.SignOut",
+                   "noAutoLogin": "plain:true"
+                  }'
                 comment: Sign Out
               ↓ClearAuthUser [ngx.components.UIDynamicAction-1772000100091]: 
                 beanData: |
