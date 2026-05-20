@@ -48,6 +48,13 @@ tagName: ion-menu
       tagName: ion-button
       ↓Event [ngx.components.UIControlEvent-1772000300004]: 
         comment: Event
+        ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1779270351365]: 
+          ↓ToastSuccess [ngx.components.UIDynamicAction-1772000300008]: 
+            beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_SignedOut'')"}'
+            comment: Toast Success
+          ↓GoToSignin [ngx.components.UIDynamicAction-1772000300009]: 
+            beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Signin"}'
+            comment: Go To Signin
         ↓OAuthSignOut [ngx.components.UIDynamicAction-1772000300901]: 
           beanData: |
             '{
@@ -80,12 +87,6 @@ tagName: ion-menu
              "Value": "script:undefined"
             }'
           comment: Clear Auth Provider
-        ↓ToastSuccess [ngx.components.UIDynamicAction-1772000300008]: 
-          beanData: '{"ionBean":"ToastAction","message":"script:this.translate.instant(''Auth_SignedOut'')"}'
-          comment: Toast Success
-        ↓GoToSignin [ngx.components.UIDynamicAction-1772000300009]: 
-          beanData: '{"ionBean":"RootPageAction","page":"plain:AuthStarter.Application.NgxApp.Signin"}'
-          comment: Go To Signin
       ↓Icon [ngx.components.UIDynamicElement-1772000300010]: 
         beanData: |
           '{
