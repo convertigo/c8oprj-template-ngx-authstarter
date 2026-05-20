@@ -222,8 +222,7 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
        "protectedPages": "script:[''Home'']",
        "guestOnlyPages": "script:[''Signin'']",
        "redirectUnauthenticatedTo": "plain:Signin",
-       "redirectAuthenticatedTo": "plain:Home",
-       "returnDetails": "plain:true"
+       "redirectAuthenticatedTo": "plain:Home"
       }'
     comment: Applies page authorization rules before route access
 ↓LightTheme [ngx.components.UIStyle-1771519405436]: 
