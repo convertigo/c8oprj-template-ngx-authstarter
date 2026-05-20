@@ -1267,7 +1267,7 @@ title: Signin
                               '{
                                "ionBean": "SetGlobalAction",
                                "Property": "plain:authUser",
-                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.decodedToken != null && out.decodedToken != '''' ? out.decodedToken : (out.object != null && out.object.email != null ? out.object.email : ''''))"
+                               "Value": "script:stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.decodedToken != null && stack[''OAuthLogin''].out.decodedToken != '''' ? stack[''OAuthLogin''].out.decodedToken : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.email != null ? stack[''OAuthLogin''].out.object.email : ''''))"
                               }'
                             comment: Set Auth User
                           ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100210]: 
@@ -1283,7 +1283,7 @@ title: Signin
                               '{
                                "ionBean": "SetLocalAction",
                                "Property": "plain:sessionMessage",
-                               "Value": "script:this.translate.instant(''Auth_Connected'') + (out.authUser != null && out.authUser != '''' ? out.authUser : (out.decodedToken != null && out.decodedToken != '''' ? out.decodedToken : (out.object != null && out.object.email != null ? out.object.email : '''')))"
+                               "Value": "script:this.translate.instant(''Auth_Connected'') + (stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.decodedToken != null && stack[''OAuthLogin''].out.decodedToken != '''' ? stack[''OAuthLogin''].out.decodedToken : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.email != null ? stack[''OAuthLogin''].out.object.email : '''')))"
                               }'
                             comment: Set Session Message
                           ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100212]: 
@@ -1295,7 +1295,7 @@ title: Signin
                           ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100213]: 
                             comment: Else Handler
                             ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100214]: 
-                              beanData: '{"ionBean":"ToastAction","message":"script:out.error != null && out.error.message != null && out.error.message != '''' ? out.error.message : (out.message != null && out.message != '''' ? out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
+                              beanData: '{"ionBean":"ToastAction","message":"script:stack[''OAuthLogin''].out.error != null && stack[''OAuthLogin''].out.error.message != null && stack[''OAuthLogin''].out.error.message != '''' ? stack[''OAuthLogin''].out.error.message : (stack[''OAuthLogin''].out.message != null && stack[''OAuthLogin''].out.message != '''' ? stack[''OAuthLogin''].out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
                               comment: Toast OAuth Failure
                       ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100215]: 
                         comment: Else Handler
@@ -1366,7 +1366,7 @@ title: Signin
                               '{
                                "ionBean": "SetGlobalAction",
                                "Property": "plain:authUser",
-                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.userPrincipalName != null && out.object.userPrincipalName != '''' ? out.object.userPrincipalName : (out.object != null && out.object.mail != null ? out.object.mail : ''''))"
+                               "Value": "script:stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.userPrincipalName != null && stack[''OAuthLogin''].out.object.userPrincipalName != '''' ? stack[''OAuthLogin''].out.object.userPrincipalName : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.mail != null ? stack[''OAuthLogin''].out.object.mail : ''''))"
                               }'
                             comment: Set Auth User
                           ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100228]: 
@@ -1382,7 +1382,7 @@ title: Signin
                               '{
                                "ionBean": "SetLocalAction",
                                "Property": "plain:sessionMessage",
-                               "Value": "script:this.translate.instant(''Auth_Connected'') + (out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.userPrincipalName != null && out.object.userPrincipalName != '''' ? out.object.userPrincipalName : (out.object != null && out.object.mail != null ? out.object.mail : '''')))"
+                               "Value": "script:this.translate.instant(''Auth_Connected'') + (stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.userPrincipalName != null && stack[''OAuthLogin''].out.object.userPrincipalName != '''' ? stack[''OAuthLogin''].out.object.userPrincipalName : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.mail != null ? stack[''OAuthLogin''].out.object.mail : '''')))"
                               }'
                             comment: Set Session Message
                           ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100230]: 
@@ -1394,7 +1394,7 @@ title: Signin
                           ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100231]: 
                             comment: Else Handler
                             ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100232]: 
-                              beanData: '{"ionBean":"ToastAction","message":"script:out.error != null && out.error.message != null && out.error.message != '''' ? out.error.message : (out.message != null && out.message != '''' ? out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
+                              beanData: '{"ionBean":"ToastAction","message":"script:stack[''OAuthLogin''].out.error != null && stack[''OAuthLogin''].out.error.message != null && stack[''OAuthLogin''].out.error.message != '''' ? stack[''OAuthLogin''].out.error.message : (stack[''OAuthLogin''].out.message != null && stack[''OAuthLogin''].out.message != '''' ? stack[''OAuthLogin''].out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
                               comment: Toast OAuth Failure
                       ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100233]: 
                         comment: Else Handler
@@ -1465,7 +1465,7 @@ title: Signin
                               '{
                                "ionBean": "SetGlobalAction",
                                "Property": "plain:authUser",
-                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.emailAddress != null && out.emailAddress != '''' ? out.emailAddress : (out.object != null && out.object.id != null ? out.object.id : ''''))"
+                               "Value": "script:stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.emailAddress != null && stack[''OAuthLogin''].out.emailAddress != '''' ? stack[''OAuthLogin''].out.emailAddress : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.id != null ? stack[''OAuthLogin''].out.object.id : ''''))"
                               }'
                             comment: Set Auth User
                           ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100246]: 
@@ -1481,7 +1481,7 @@ title: Signin
                               '{
                                "ionBean": "SetLocalAction",
                                "Property": "plain:sessionMessage",
-                               "Value": "script:this.translate.instant(''Auth_Connected'') + (out.emailAddress != null && out.emailAddress != '''' ? out.emailAddress : (out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.id != null ? out.object.id : '''')))"
+                               "Value": "script:this.translate.instant(''Auth_Connected'') + (stack[''OAuthLogin''].out.emailAddress != null && stack[''OAuthLogin''].out.emailAddress != '''' ? stack[''OAuthLogin''].out.emailAddress : (stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.id != null ? stack[''OAuthLogin''].out.object.id : '''')))"
                               }'
                             comment: Set Session Message
                           ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100248]: 
@@ -1493,7 +1493,7 @@ title: Signin
                           ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100249]: 
                             comment: Else Handler
                             ↓ToastOAuthFailure [ngx.components.UIDynamicAction-1772000100250]: 
-                              beanData: '{"ionBean":"ToastAction","message":"script:out.error != null && out.error.message != null && out.error.message != '''' ? out.error.message : (out.message != null && out.message != '''' ? out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
+                              beanData: '{"ionBean":"ToastAction","message":"script:stack[''OAuthLogin''].out.error != null && stack[''OAuthLogin''].out.error.message != null && stack[''OAuthLogin''].out.error.message != '''' ? stack[''OAuthLogin''].out.error.message : (stack[''OAuthLogin''].out.message != null && stack[''OAuthLogin''].out.message != '''' ? stack[''OAuthLogin''].out.message : this.translate.instant(''Auth_Authentication_Failed''))"}'
                               comment: Toast OAuth Failure
                       ↓Else_Handler [ngx.components.UIActionElseEvent-1772000100251]: 
                         comment: Else Handler
@@ -1573,7 +1573,7 @@ title: Signin
                               '{
                                "ionBean": "SetGlobalAction",
                                "Property": "plain:authUser",
-                               "Value": "script:out.authUser != null && out.authUser != '''' ? out.authUser : (out.object != null && out.object.email != null ? out.object.email : '''')"
+                               "Value": "script:stack[''OAuthLogin''].out.authUser != null && stack[''OAuthLogin''].out.authUser != '''' ? stack[''OAuthLogin''].out.authUser : (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.email != null ? stack[''OAuthLogin''].out.object.email : '''')"
                               }'
                             comment: Set Auth User
                           ↓SetAuthProvider [ngx.components.UIDynamicAction-1772000100068]: 
@@ -1589,7 +1589,7 @@ title: Signin
                               '{
                                "ionBean": "SetLocalAction",
                                "Property": "plain:sessionMessage",
-                               "Value": "script:this.translate.instant(''Auth_Connected_OpenID'') + (out.object != null && out.object.email != null ? out.object.email : out.authUser)"
+                               "Value": "script:this.translate.instant(''Auth_Connected_OpenID'') + (stack[''OAuthLogin''].out.object != null && stack[''OAuthLogin''].out.object.email != null ? stack[''OAuthLogin''].out.object.email : stack[''OAuthLogin''].out.authUser)"
                               }'
                             comment: Set Session Message
                           ↓ToastSuccess [ngx.components.UIDynamicAction-1772000100070]: 
